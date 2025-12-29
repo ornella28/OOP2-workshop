@@ -16,7 +16,7 @@ public class Snack extends Product{
         return containsNuts;
     }
 
-    // Override getDescription method
+    // Override getDescription method:polymorphism
 
 
     @Override
