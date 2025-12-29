@@ -5,7 +5,7 @@ public abstract class Product {
     private final int id;
     private final String name;
     private final int price;
-    private final int quantity;
+    private int quantity;
 
 
     // Constructor
@@ -37,6 +37,13 @@ public abstract class Product {
     }
 
     //methods
+
+    public void decreaseQuantityByOne(){
+        if(quantity<=0){
+            throw new IllegalStateException("Product is out of stock");
+        }
+        quantity--;
+    }
 
     public String getDescription(){
         return "ID: " + id + ", Name: " + name + ", Price: " + price + ", Quantity: " + quantity;
