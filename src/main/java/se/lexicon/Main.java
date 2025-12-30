@@ -17,6 +17,7 @@ public class Main {
         System.out.println(snack.getDescription());
         System.out.println(beverage.getDescription());
         System.out.println(fruit.getDescription());
+        System.out.println();
 
         //Create products list
         List<Product>products = new ArrayList<>();
@@ -26,6 +27,32 @@ public class Main {
 
         //Create vending machine
         IVendingMachine vendingMachine = new VendingMachineImpl(products);
+
+        //show starting balance and products
+        System.out.println("Starting balance: " + vendingMachine.getBalance() + " cents");
+        System.out.println("Available products:");
+        for (Product product : vendingMachine.getProducts()) {
+            System.out.println(product.getDescription());
+        }
+        System.out.println();
+
+
+        //Insert coins
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+        vendingMachine.insertCoin(Coin.Fifty_Cent);
+        System.out.println("Balance after inserting coins: " + vendingMachine.getBalance() + " cents");
+
+        //Purchase product(id=2 -> Cola, price=10)
+        Product purchasedProduct = vendingMachine.purchaseProduct(2);
+        System.out.println("Purchased product: " + purchasedProduct.getDescription());
+        System.out.println("Balance after purchase: " + vendingMachine.getBalance() + " cents");
+
+        //Return change
+        int change = vendingMachine.returnChange();
+        System.out.println("Returned change: " + change + " cents");
+        System.out.println("Final balance: " + vendingMachine.getBalance() + " cents");
+
+
 
 
 
