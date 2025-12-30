@@ -51,6 +51,40 @@ public class Main {
         int change = vendingMachine.returnChange();
         System.out.println("Returned change: " + change + " cents");
         System.out.println("Final balance: " + vendingMachine.getBalance() + " cents");
+        System.out.println();
+
+        //show remaining products
+        System.out.println("Remaining products:");
+        for (Product product : vendingMachine.getProducts()) {
+            System.out.println(product.getDescription());
+        }
+        System.out.println();
+
+        //Insert coins for further purchases
+        vendingMachine.insertCoin(Coin.Ten_Cent);
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+        System.out.println();
+
+        //Purchase more products to test stock decrease (id=1 -> Chocolate Bar, price=15)
+        Product purchasedProduct2 = vendingMachine.purchaseProduct(1);
+        System.out.println("Purchased product: " + purchasedProduct2.getDescription());
+        System.out.println("Balance after purchase: " + vendingMachine.getBalance() + " cents");
+        System.out.println();
+
+        //return change
+        int change2 = vendingMachine.returnChange();
+        System.out.println("Returned change: " + change2 + " cents");
+        System.out.println("Final balance: " + vendingMachine.getBalance() + " cents");
+
+        //show remaining products
+        System.out.println("Remaining products:");
+        for (Product product : vendingMachine.getProducts()) {
+            System.out.println(product.getDescription());
+        }
+        System.out.println();
+
+
+
 
 
 

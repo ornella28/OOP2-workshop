@@ -51,6 +51,7 @@ public class VendingMachineImpl implements IVendingMachine{
       product.decreaseQuantityByOne();
         balance -= product.getPrice();
 
+
         return product;
 
     }
