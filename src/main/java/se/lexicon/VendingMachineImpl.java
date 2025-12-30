@@ -11,9 +11,9 @@ public class VendingMachineImpl implements IVendingMachine{
     // Constructor
 
 
-    public VendingMachineImpl(List<Product> products, int balance) {
+    public VendingMachineImpl(List<Product> products) {
         this.products = products;
-        this.balance = balance;
+        this.balance = 0;
     }
 
     //method to find product by id
@@ -41,6 +41,8 @@ public class VendingMachineImpl implements IVendingMachine{
     @Override
     public Product purchaseProduct(int productId) {
         Product product = findProduct(productId);
+        if (product == null)
+            throw new IllegalArgumentException("Product with ID " + productId + " not found");
         if (product.getQuantity()<=0)
             throw new IllegalStateException("Product is out of stock");
         if(balance < product.getPrice())
