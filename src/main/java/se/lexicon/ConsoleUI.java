@@ -71,6 +71,20 @@ public class ConsoleUI {
         System.out.println("Inserted " + coin.name() + ". Current balance: " + vendingMachine.getBalance() + " cents.");
     }
 
+    private void purchaseProduct(){
+        System.out.print("Enter Product ID to purchase: ");
+        int productId = Integer.parseInt(scanner.nextLine());
+        Product product = vendingMachine.purchaseProduct(productId);
+        System.out.println("Purchased: " + product.getDescription() + ". Remaining balance: " + vendingMachine.getBalance() + " cents.");
+    }
+
+    private void returnChange(){
+        int change = vendingMachine.returnChange();
+        System.out.println("Returned change: " + change + " cents. Current balance: " + vendingMachine.getBalance() + " cents.");
+    }
+
+
+
 
 
 }
