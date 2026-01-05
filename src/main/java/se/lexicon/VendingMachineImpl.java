@@ -29,6 +29,10 @@ public class VendingMachineImpl implements IVendingMachine{
     //override methods to insert coin
     @Override
     public void insertCoin(Coin coin) {
+
+        if (coin == null){
+            throw new IllegalArgumentException("Coin cannot be null");
+        }
         balance+=coin.getValue();
     }
     //override method to get balance

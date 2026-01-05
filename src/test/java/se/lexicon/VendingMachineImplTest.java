@@ -1,0 +1,67 @@
+package se.lexicon;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class VendingMachineImplTest {
+
+    private VendingMachineImpl vendingMachine;
+    private Snack chips;
+
+    @BeforeEach
+    void setUp() {
+
+        chips = new Snack(1, "Chips", 25, 10, false);
+        List<Product> products = new ArrayList<>();
+        products.add(chips);
+        products.add(new Beverage(2, "Cookies", 20, 5, false));
+        products.add(new Fruit(3, "Banana", 15, 8, false));
+        vendingMachine = new VendingMachineImpl(products);
+
+        //TEST : case 1: Insert coins
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+        vendingMachine.insertCoin(Coin.Five_Cent);
+
+
+    }
+    @Test
+    void testInsertCoinAndGetBalance() {
+        int balance = vendingMachine.getBalance();
+        assert balance == 25 : "Balance should be 25 cents after inserting coins.";
+    }
+
+    @Test
+    void testPurchaseProduct_Success() {
+        Product purchasedProduct = vendingMachine.purchaseProduct(1); // Purchase Chips
+        assert purchasedProduct != null : "Purchased product should not be null.";
+        assert purchasedProduct.getId() == 1 : "Purchased product ID should be 1.";
+        assert vendingMachine.getBalance() == 0 : "Balance should be 0 cents after purchase.";
+        assert chips.getQuantity() == 9 : "Chips quantity should decrease by one.";
+    }
+
+    @Test
+    void testPurchaseProduct_InsufficientBalance() {
+        try {
+            vendingMachine.purchaseProduct(2); // Attempt to purchase Cookies (price 20)
+            assert false : "Expected IllegalStateException for insufficient balance.";
+        } catch (IllegalStateException e) {
+            assert e.getMessage().equals("Insufficient balance") : "Exception message should indicate insufficient balance.";
+        }
+    }
+
+    @Test
+    void testReturnChange() {
+        int change = vendingMachine.returnChange();
+        assert change == 25 : "Returned change should be 25 cents.";
+        assert vendingMachine.getBalance() == 0 : "Balance should be 0 cents after returning change.";
+    }
+
+
+
+
+}
