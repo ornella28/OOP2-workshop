@@ -83,6 +83,9 @@ public class Main {
         }
         System.out.println();
 
+        ConsoleUI consoleUI = new ConsoleUI(vendingMachine);
+        consoleUI.start();
+
 
 
 
