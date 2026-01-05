@@ -23,20 +23,27 @@ public class VendingMachineImplTest {
         products.add(new Fruit(3, "Banana", 15, 8, false));
         vendingMachine = new VendingMachineImpl(products);
 
-        //TEST : case 1: Insert coins
-        vendingMachine.insertCoin(Coin.Twenty_Cent);
-        vendingMachine.insertCoin(Coin.Five_Cent);
+
 
 
     }
     @Test
     void testInsertCoinAndGetBalance() {
+
+        //TEST : case 1: Insert coins
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+        vendingMachine.insertCoin(Coin.Five_Cent);
+
         int balance = vendingMachine.getBalance();
         assert balance == 25 : "Balance should be 25 cents after inserting coins.";
     }
 
     @Test
     void testPurchaseProduct_Success() {
+
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+        vendingMachine.insertCoin(Coin.Five_Cent);
+
         Product purchasedProduct = vendingMachine.purchaseProduct(1); // Purchase Chips
         assert purchasedProduct != null : "Purchased product should not be null.";
         assert purchasedProduct.getId() == 1 : "Purchased product ID should be 1.";
@@ -46,6 +53,8 @@ public class VendingMachineImplTest {
 
     @Test
     void testPurchaseProduct_InsufficientBalance() {
+        vendingMachine.insertCoin(Coin.Ten_Cent);
+
         try {
             vendingMachine.purchaseProduct(2); // Attempt to purchase Cookies (price 20)
             assert false : "Expected IllegalStateException for insufficient balance.";
@@ -56,6 +65,10 @@ public class VendingMachineImplTest {
 
     @Test
     void testReturnChange() {
+
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+        vendingMachine.insertCoin(Coin.Five_Cent);
+
         int change = vendingMachine.returnChange();
         assert change == 25 : "Returned change should be 25 cents.";
         assert vendingMachine.getBalance() == 0 : "Balance should be 0 cents after returning change.";
