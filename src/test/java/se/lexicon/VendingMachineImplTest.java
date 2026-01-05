@@ -57,6 +57,19 @@ public class VendingMachineImplTest {
     }
 
     @Test
+    void testGetProductsReturnsAllProducts() {
+        List<Product> products = new ArrayList<>();
+        products.add(new Snack(4, "Candy", 10, 5, false));
+        products.add(new Beverage(5, "Soda", 15, 3, false));
+        products.add(new Fruit(6, "Orange", 20, 2, false));
+
+        VendingMachineImpl vm = new VendingMachineImpl(products);
+        List<Product> retrievedProducts = vm.getProducts();
+
+        assert retrievedProducts.size() == 3 : "There should be 3 products in the vending machine.";
+    }
+
+    @Test
     void testPurchaseProduct_Success() {
 
         vendingMachine.insertCoin(Coin.Twenty_Cent);
