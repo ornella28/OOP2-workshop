@@ -3,6 +3,7 @@ package se.lexicon;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 
@@ -37,6 +38,22 @@ public class VendingMachineImplTest {
 
         int balance = vendingMachine.getBalance();
         assert balance == 25 : "Balance should be 25 cents after inserting coins.";
+    }
+
+    @Test
+    void testRejectInvalidCoin() {
+        int initialBalance = vendingMachine.getBalance();
+        try {
+            vendingMachine.insertCoin(null); // Attempt to insert an invalid coin
+            assert false; // Should not reach here
+        } catch (IllegalArgumentException e) {
+            // expected exception: do nothing
+        }
+
+        int balanceAfterInvalidCoin = vendingMachine.getBalance();
+        assert balanceAfterInvalidCoin == initialBalance : "Balance should remain unchanged after inserting an invalid coin.";
+
+
     }
 
     @Test
