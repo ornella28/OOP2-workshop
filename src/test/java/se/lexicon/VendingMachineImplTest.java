@@ -70,6 +70,34 @@ public class VendingMachineImplTest {
     }
 
     @Test
+    void testPurchaseProduct_OutOfStock() {
+      //Create a product that is out of stock
+        Snack outOfStockSnack = new Snack(4, "OutOfStockSnack", 30, 0, false);
+        List<Product> products = new ArrayList<>();
+        products.add(outOfStockSnack);
+        VendingMachineImpl vmWithOutOfStock = new VendingMachineImpl(products);
+
+        //Insert sufficient coins
+        vendingMachine.insertCoin(Coin.Twenty_Cent);
+
+        int initialBalance = vendingMachine.getBalance();
+        int initialQuantity = outOfStockSnack.getQuantity();
+
+        //When
+        try {
+            vmWithOutOfStock.purchaseProduct(4); // Attempt to purchase out of stock product
+            assert false : "Expected IllegalStateException for out of stock product.";
+        } catch (IllegalStateException e) {
+            //excepted exception
+        }
+
+        //Then
+        assert vendingMachine.getBalance() == initialBalance : "Balance should remain unchanged after attempting to purchase out of stock product.";
+        assert outOfStockSnack.getQuantity() == initialQuantity : "Product quantity should remain unchanged after attempting to purchase out of stock product.";
+
+    }
+
+    @Test
     void testPurchaseProduct_InsufficientBalance() {
         vendingMachine.insertCoin(Coin.Ten_Cent);
 
